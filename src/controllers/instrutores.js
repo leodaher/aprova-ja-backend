@@ -7,6 +7,11 @@ exports.create = (req, res) => {
     var email = req.body.email;
     var password = req.body.password;
     var nome = req.body.nome;
+    var cpf = req.body.cpf;
+    var descricao = req.body.descricao;
+    var telefone = req.body.telefone;
+    var categorias = req.body.categorias;
+    var taxa = req.body.taxa;
 
     // Validates inputs
     if(!validator.isEmail(email) || validator.isEmpty(email) || validator.isEmpty(password) || !validator.isLength(password, {min: 6, max: 32})) {
@@ -18,9 +23,14 @@ exports.create = (req, res) => {
         // Creates user with email and password
         firebase.auth().createUserWithEmailAndPassword(email, password).then(function(data) {
             
-            db.collection('alunos').add({
+            db.collection('instrutores').add({
                 nome: nome,
                 email: data.user.email,
+                cpf: cpf,
+                descricao: descricao,
+                telefone: telefone,
+                categorias: categorias,
+                taxa: taxa,
                 uid: data.user.uid
             }).then(function(docRef) {
                 res.status(201).json({data: data});
@@ -38,5 +48,5 @@ exports.create = (req, res) => {
 }
 
 exports.show = (req, res) => {
-
+    
 }
