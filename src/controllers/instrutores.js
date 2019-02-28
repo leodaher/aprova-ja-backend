@@ -47,6 +47,53 @@ exports.create = (req, res) => {
     }
 }
 
-exports.show = (req, res) => {
+exports.index = (req, res) => {
+    var categoria = req.query.categoria;
+
+
+    if(categoria) {
+        db.collection("instrutores").where("categorias", "array-contains", categoria)
+        .get()
+        .then(function(querySnapshot) {
+            var results = [];
+
+            querySnapshot.forEach(function(doc) {
+                results.push(doc.data());
+            });
+
+            res.status(200).json({data: results});
+        })
+        .catch(function(error) {
+            res.status(500).error({error: error});
+        });
+    } else {
+        db.collection("instrutores")
+        .get()
+        .then(function(querySnapshot) {
+            var results = [];
+
+            querySnapshot.forEach(function(doc) {
+                results.push(doc.data());
+            });
+
+            res.status(200).json({data: results});
+        })
+        .catch(function(error) {
+            res.status(500).error({error: error});
+        });
+    }
     
+}
+
+exports.show = (req, res) => {
+    var id = req.params.id;
+
+    db.collection("instrutores").doc(id)
+        .get()
+        .then(function(doc) {
+            res.status(200).json({data: doc.data()});
+        })
+        .catch(function(error) {
+            res.status(500).json({error: error});
+        });
 }

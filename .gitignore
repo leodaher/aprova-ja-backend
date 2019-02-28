@@ -1,3 +1,6 @@
 node_modules/
 aprova-ja-firebase-adminsdk-g94dd-5895fff65e.json
+credentials.json
+token.json
+index.js
 

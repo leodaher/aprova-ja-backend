@@ -38,5 +38,14 @@ exports.create = (req, res) => {
 }
 
 exports.show = (req, res) => {
+    var id = req.params.id;
 
+    db.collection("alunos").doc(id)
+        .get()
+        .then(function(doc) {
+            res.status(200).json({data: doc.data()});
+        })
+        .catch(function(error) {
+            res.status(500).json({error: error});
+        })
 }

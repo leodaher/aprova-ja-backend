@@ -29,10 +29,12 @@ app.use(bodyParser.json());
 
 var instrutoresRoutes = require('./routes/instrutores');
 var alunosRoutes = require('./routes/alunos');
+var agendamentosRoutes = require('./routes/agendamentos');
 
 app.use('/', testRoutes);
 app.use('/auth', authRoutes);
 app.use('/instrutores', instrutoresRoutes);
 app.use('/alunos', alunosRoutes);
+app.use('/agendamentos', agendamentosRoutes);
 
-app.listen(3000);
+app.listen(3001);
